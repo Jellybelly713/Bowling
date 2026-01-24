@@ -3,50 +3,65 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public float speed = 5.0f;
     public float mouseSens = 5.0f;
+
+    public float gravity = -20f;
+    public float groundStickForce = -2f;
 
     public CharacterController characterController;
     public Transform cameraTransform;
 
     float xRotation = 0f;
+    float yVelocity = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Debug.Log("Scene has started");
-
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor. visible = false;
-
-
-
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Scene has updated");
-
+        // --- MOVE INPUT ---
         Vector2 moveInput = Keyboard.current != null
-            ? new Vector2 (
+            ? new Vector2(
                 (Keyboard.current.aKey.isPressed ? -1 : 0) + (Keyboard.current.dKey.isPressed ? 1 : 0),
                 (Keyboard.current.sKey.isPressed ? -1 : 0) + (Keyboard.current.wKey.isPressed ? 1 : 0)
-                ) : Vector2.zero;
+              )
+            : Vector2.zero;
 
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        characterController.Move ( move * speed * Time.deltaTime);
+        move *= speed;
 
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+        // --- GRAVITY ---
+        if (characterController.isGrounded)
+        {
+            // keeps you “stuck” to ground so you don’t float after walking onto edges
+            if (yVelocity < 0f) yVelocity = groundStickForce;
+        }
+        else
+        {
+            yVelocity += gravity * Time.deltaTime;
+        }
 
-        float mouseX = mouseDelta.x * mouseSens * Time.deltaTime;
-        float mouseY = mouseDelta.y * mouseSens * Time.deltaTime;
+        Vector3 velocity = move + Vector3.up * yVelocity;
+        characterController.Move(velocity * Time.deltaTime);
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        // --- LOOK ---
+        if (Mouse.current != null)
+        {
+            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        transform.Rotate(Vector3.up * mouseX);
+            float mouseX = mouseDelta.x * mouseSens * Time.deltaTime;
+            float mouseY = mouseDelta.y * mouseSens * Time.deltaTime;
+
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+
+            cameraTransform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            transform.Rotate(Vector3.up * mouseX);
+        }
     }
 }
+
