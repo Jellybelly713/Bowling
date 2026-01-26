@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Interactable
   - interactable
+  - Pin
+  - Floor
   layers:
   - Default
   - TransparentFX

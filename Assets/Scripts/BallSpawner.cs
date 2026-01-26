@@ -5,8 +5,6 @@ public class BallSpawner : MonoBehaviour
 {
     public GameObject ballPrefab;
     public Transform spawnPoint;
-
-    [Header("Ball Limit")]
     public int maxBalls = 10;
 
     private List<GameObject> spawnedBalls = new List<GameObject>();
@@ -19,7 +17,7 @@ public class BallSpawner : MonoBehaviour
             return;
         }
 
-        // If we already have max balls, remove the oldest one
+        // removes the oldest ball
         if (spawnedBalls.Count >= maxBalls)
         {
             GameObject oldestBall = spawnedBalls[0];

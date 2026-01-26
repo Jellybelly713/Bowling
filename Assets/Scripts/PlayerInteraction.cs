@@ -16,16 +16,16 @@ public class PlayerInteraction : MonoBehaviour
         if (playerCamera == null || crosshairScript == null)
             return;
 
-        // ✅ PRIORITY: if holding a ball, pressing E should ALWAYS release/throw it
+        // if holding a ball, pressing E always releases/throws it
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame && heldBall != null)
         {
-            heldBall.Interact(holdPoint, playerCamera.transform); // this triggers DropAndThrow() in your BallInteractable
+            heldBall.Interact(holdPoint, playerCamera.transform); // this triggers DropAndThrow() in BallInteractable
             heldBall = null;
             crosshairScript.SetInteract(false);
             return;
         }
 
-        // Otherwise, raycast to interact with buttons/balls
+        // raycast to interact with buttons/balls
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         RaycastHit hit;
 
@@ -45,11 +45,11 @@ public class PlayerInteraction : MonoBehaviour
                         return;
                     }
 
-                    // 2) Old toggle button
-                    Button oldBtn = hit.collider.GetComponentInParent<Button>();
-                    if (oldBtn != null)
+                    // Reset pins button
+                    ResetPinsButton resetBtn = hit.collider.GetComponentInParent<ResetPinsButton>();
+                    if (resetBtn != null)
                     {
-                        oldBtn.Press();
+                        resetBtn.Press();
                         return;
                     }
 

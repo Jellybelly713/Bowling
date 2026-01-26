@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class BallInteractable : MonoBehaviour
 {
-    [Header("Throw Settings")]
     public float throwForce = 12f;
 
-    [Header("Throw Randomness")]
     public float spreadAngle = 0.5f;     // left/right randomness in degrees
     public float verticalSpread = 1.0f;  // up/down randomness in degrees
-    public float spinAmount = 1.5f;        // optional: random spin torque
+    public float spinAmount = 1.5f;      // random spin torque
 
-    [Header("Hold Settings")]
-    public Vector3 holdLocalOffset = Vector3.zero; // optional tweak if you want it slightly lower/left
+    public Vector3 holdLocalOffset = Vector3.zero; 
     public Vector3 holdLocalEulerOffset = Vector3.zero;
+
+    public float despawnDelay = 10f;
 
     private Rigidbody rb;
     private Collider col;
@@ -29,7 +28,7 @@ public class BallInteractable : MonoBehaviour
 
     void LateUpdate()
     {
-        // Hard lock to hold point AFTER camera/player rotation updates
+        // Hard lock to hold point after player rotation updates
         if (!isHeld || holdPoint == null) return;
 
         transform.localPosition = holdLocalOffset;
@@ -44,11 +43,13 @@ public class BallInteractable : MonoBehaviour
 
     private void PickUp(Transform playerHoldPoint, Transform playerTransform)
     {
+        CancelInvoke(nameof(Despawn));
+
         isHeld = true;
         holdPoint = playerHoldPoint;
         holder = playerTransform;
 
-        // Stop physics from fighting the camera/player motion
+        // stops physics from fighting the player motion
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.useGravity = false;
@@ -81,9 +82,9 @@ public class BallInteractable : MonoBehaviour
                           (holder != null) ? holder.forward :
                           transform.forward;
 
-        // === RANDOM SPREAD ===
-        float yaw = Random.Range(-spreadAngle, spreadAngle);           // left/right
-        float pitch = Random.Range(-verticalSpread, verticalSpread);  // up/down
+        // Randomness to ball throw
+        float yaw = Random.Range(-spreadAngle, spreadAngle);            // left/right
+        float pitch = Random.Range(-verticalSpread, verticalSpread);    // up/down
 
         Quaternion randomRot = Quaternion.Euler(pitch, yaw, 0f);
         Vector3 throwDir = randomRot * forward;
@@ -91,16 +92,25 @@ public class BallInteractable : MonoBehaviour
         // Apply force
         rb.AddForce(throwDir * throwForce, ForceMode.Impulse);
 
-        // Optional: random spin torque (feels more like bowling)
+        // random spin torque to feel more like bowling
         if (spinAmount > 0f)
         {
             rb.AddTorque(Random.insideUnitSphere * spinAmount, ForceMode.Impulse);
         }
 
+        // Despawn after x seconds
+        Invoke(nameof(Despawn), despawnDelay);
+
         holdPoint = null;
         holder = null;
     }
+
+    private void Despawn()
+    {
+        Destroy(gameObject);
+    }
 }
+
 
 
 
