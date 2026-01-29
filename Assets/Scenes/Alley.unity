@@ -2541,7 +2541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  mouseSens: 70
+  mouseSens: 50
   gravity: -20
   groundStickForce: -2
   characterController: {fileID: 1025265609}
