@@ -4,9 +4,9 @@ public class BallInteractable : MonoBehaviour
 {
     public float throwForce = 12f;
 
-    public float spreadAngle = 0.5f;     // left/right randomness in degrees
-    public float verticalSpread = 1.0f;  // up/down randomness in degrees
-    public float spinAmount = 1.5f;      // random spin torque
+    public float spreadAngle = 0.5f; // left/right randomness in degrees
+    public float verticalSpread = 1.0f; // up/down randomness in degrees
+    public float spinAmount = 1.5f; // random spin torque
 
     public Vector3 holdLocalOffset = Vector3.zero; 
     public Vector3 holdLocalEulerOffset = Vector3.zero;
@@ -83,8 +83,8 @@ public class BallInteractable : MonoBehaviour
                           transform.forward;
 
         // Randomness to ball throw
-        float yaw = Random.Range(-spreadAngle, spreadAngle);            // left/right
-        float pitch = Random.Range(-verticalSpread, verticalSpread);    // up/down
+        float yaw = Random.Range(-spreadAngle, spreadAngle); // left/right
+        float pitch = Random.Range(-verticalSpread, verticalSpread); // up/down
 
         Quaternion randomRot = Quaternion.Euler(pitch, yaw, 0f);
         Vector3 throwDir = randomRot * forward;

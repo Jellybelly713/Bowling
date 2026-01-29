@@ -27,7 +27,7 @@ RenderSettings:
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.22556959, g: 0.26046813, b: 0.3490566, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
-  m_HaloStrength: 0.5
+  m_HaloStrength: 0.555
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  mouseSens: 50
+  mouseSens: 30
   gravity: -20
   groundStickForce: -2
   characterController: {fileID: 221291074}
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb9fe107368a884e9f6fceee17bdd2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 0}
+  ballPrefab: {fileID: 1651048869}
   spawnPoint: {fileID: 2077647277}
   maxBalls: 10
 --- !u!4 &386684411
@@ -2131,7 +2131,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651048869}
   serializedVersion: 5
-  m_Mass: 6
+  m_Mass: 5
   m_LinearDamping: 0.05
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3583,7 +3583,7 @@ PrefabInstance:
     - target: {fileID: 5718040866267344408, guid: 77e1fad9207bf64419dde5ab61a9965f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f6c4c819f3b9b0a498a920be672d67d7, type: 2}
+      objectReference: {fileID: 2100000, guid: bbc8fa237c5395647a445606dd986050, type: 2}
     - target: {fileID: 5718040866267344408, guid: 77e1fad9207bf64419dde5ab61a9965f, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
