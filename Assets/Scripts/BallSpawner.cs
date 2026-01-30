@@ -13,7 +13,7 @@ public class BallSpawner : MonoBehaviour
     {
         if (ballPrefab == null || spawnPoint == null)
         {
-            Debug.LogWarning("BallSpawner missing prefab or spawnPoint.");
+            Debug.LogWarning("BallSpawner missing prefab");
             return;
         }
 

@@ -8,7 +8,7 @@ public class Pin : MonoBehaviour
     public float fallenHoldTime = 0.35f; 
 
     [Header("Despawn")]
-    public float despawnDelay = 1.25f;
+    public float despawnDelay = 1.0f;
 
     private Rigidbody rb;
     private PinManager manager;

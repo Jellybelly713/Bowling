@@ -4,8 +4,7 @@ using UnityEngine;
 public class PinManager : MonoBehaviour
 {
     [Header("Audio")]
-    public AudioSource sfxSource;
-    public AudioClip strikeClip;
+    public StrikeAudio strikeAudio;   // reference to StrikeAudio script
 
     private readonly List<Pin> pins = new List<Pin>();
     private readonly HashSet<Pin> fallenPins = new HashSet<Pin>();
@@ -27,31 +26,30 @@ public class PinManager : MonoBehaviour
         if (!fallenPins.Add(pin))
             return;
 
-        // Strike = all pins have fallen
+        // Strike = all pins fallen
         if (!strikePlayed && pins.Count > 0 && fallenPins.Count >= pins.Count)
         {
             strikePlayed = true;
 
-            if (sfxSource != null && strikeClip != null)
-                sfxSource.PlayOneShot(strikeClip);
+            if (strikeAudio != null)
+                strikeAudio.PlayStrike();
             else
-                Debug.LogWarning("PinManager: Missing sfxSource or strikeClip for strike sound.");
+                Debug.LogWarning("PinManager: StrikeAudio not assigned.");
         }
     }
 
     public void ResetAllPins()
     {
-        // Reset pins
         for (int i = 0; i < pins.Count; i++)
         {
             if (pins[i] != null)
                 pins[i].ResetPin();
         }
 
-        // Reset strike tracking
         fallenPins.Clear();
         strikePlayed = false;
     }
+
     public void StartNewThrow()
     {
         fallenPins.Clear();
