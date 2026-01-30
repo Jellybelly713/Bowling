@@ -16,10 +16,10 @@ public class PlayerInteraction : MonoBehaviour
         if (playerCamera == null || crosshairScript == null)
             return;
 
-        // if holding a ball, pressing E always releases/throws it
+        // if holding a ball, pressing E always throws it
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame && heldBall != null)
         {
-            heldBall.Interact(holdPoint, playerCamera.transform); // this triggers DropAndThrow() in BallInteractable
+            heldBall.Interact(holdPoint, playerCamera.transform); // triggers DropAndThrow() in BallInteractable
             heldBall = null;
             crosshairScript.SetInteract(false);
             return;
@@ -71,7 +71,7 @@ public class PlayerInteraction : MonoBehaviour
                         return;
                     }
 
-                    Debug.Log("Interactable hit, but no SpawnButton/Button/BallInteractable found on it.");
+                    Debug.Log("Interactable hit, but no SpawnButton found.");
                 }
 
                 return;

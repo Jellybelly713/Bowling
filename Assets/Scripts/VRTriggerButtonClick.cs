@@ -6,10 +6,9 @@ public class VRTriggerButtonClick : MonoBehaviour
     // Set to XRI Left/Right Interaction -> Activate
     public InputActionReference triggerAction;
 
-    [Header("Interaction Settings")]
     public float maxDistance = 0.3f;
-    public float castRadius = 0.06f;   // interaction thickness
-    public LayerMask hitMask = ~0;     // limit to button layer if desired
+    public float castRadius = 0.06f; // interaction thickness
+    public LayerMask hitMask = ~0; // limit to button layer if desired
 
     private void OnEnable()
     {

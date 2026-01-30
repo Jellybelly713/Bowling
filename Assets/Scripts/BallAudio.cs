@@ -3,12 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class BallAudio : MonoBehaviour
 {
-    [Header("Clips")]
     public AudioClip dropClip;
     public AudioClip rollLoopClip;
     public AudioClip hitPinsClip;
 
-    [Header("Tuning")]
     public float minRollSpeed = 0.6f;
     public float rollMaxVolumeSpeed = 8f;
 
@@ -24,7 +22,7 @@ public class BallAudio : MonoBehaviour
         rollSource.loop = true;
         rollSource.playOnAwake = false;
         rollSource.clip = rollLoopClip;
-        rollSource.spatialBlend = 1f; // 3D
+        rollSource.spatialBlend = 1f;
     }
 
     void Update()
@@ -48,7 +46,7 @@ public class BallAudio : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Ball drop when first hits the lane/floor
+        // Ball drop when first hits the floor
         if (!hasDropped && collision.collider.CompareTag("Floor"))
         {
             hasDropped = true;

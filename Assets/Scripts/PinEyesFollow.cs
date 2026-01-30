@@ -11,15 +11,15 @@ public class PinEyesFollow : MonoBehaviour
 
     [Header("Tuning")]
     public float followSpeed = 10f;
-    public float maxYaw = 45f;      // left/right limit
-    public float maxPitch = 25f;    // up/down limit
+    public float maxYaw = 45f; // left/right limit
+    public float maxPitch = 25f; // up/down limit
 
     private Quaternion eyeLStartLocalRot;
     private Quaternion eyeRStartLocalRot;
 
     void Start()
     {
-        // Auto find eyes if not assigned
+        // find eyes
         if (eyeL == null)
         {
             Transform t = transform.Find("Eye_L");
@@ -32,7 +32,7 @@ public class PinEyesFollow : MonoBehaviour
             if (t != null) eyeR = t;
         }
 
-        // Auto find camera
+        // find camera
         if (target == null && Camera.main != null)
             target = Camera.main.transform;
 
@@ -56,13 +56,10 @@ public class PinEyesFollow : MonoBehaviour
         Vector3 dir = target.position - eye.position;
         if (dir.sqrMagnitude < 0.0001f) return;
 
-        // Desired world rotation
         Quaternion lookWorld = Quaternion.LookRotation(dir);
 
-        // Convert to LOCAL rotation relative to the pin
         Quaternion lookLocal = Quaternion.Inverse(transform.rotation) * lookWorld;
 
-        // Clamp yaw/pitch in local space
         Vector3 e = lookLocal.eulerAngles;
         e.x = NormalizeAngle(e.x);
         e.y = NormalizeAngle(e.y);
@@ -72,7 +69,7 @@ public class PinEyesFollow : MonoBehaviour
 
         Quaternion clampedLocal = Quaternion.Euler(clampedPitch, clampedYaw, 0f);
 
-        // Apply smoothly, relative to original eye rotation
+        // relative to original eye rotation
         Quaternion targetLocalRot = startLocalRot * clampedLocal;
         eye.localRotation = Quaternion.Slerp(eye.localRotation, targetLocalRot, followSpeed * Time.deltaTime);
     }

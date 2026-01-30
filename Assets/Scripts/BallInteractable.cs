@@ -28,7 +28,7 @@ public class BallInteractable : MonoBehaviour
 
     void LateUpdate()
     {
-        // Hard lock to hold point after player rotation updates
+        // lock to hold point after player rotation updates
         if (!isHeld || holdPoint == null) return;
 
         transform.localPosition = holdLocalOffset;
@@ -58,7 +58,7 @@ public class BallInteractable : MonoBehaviour
         // Disable collider while held so it never gets pushed by nearby geometry/player
         if (col != null) col.enabled = false;
 
-        // Parent to hold point and snap
+        // Parent to hold point 
         transform.SetParent(holdPoint, worldPositionStays: false);
         transform.localPosition = holdLocalOffset;
         transform.localRotation = Quaternion.Euler(holdLocalEulerOffset);
@@ -92,7 +92,7 @@ public class BallInteractable : MonoBehaviour
         // Apply force
         rb.AddForce(throwDir * throwForce, ForceMode.Impulse);
 
-        // random spin torque to feel more like bowling
+        // random spin to feel more like bowling
         if (spinAmount > 0f)
         {
             rb.AddTorque(Random.insideUnitSphere * spinAmount, ForceMode.Impulse);

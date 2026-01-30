@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class PinManager : MonoBehaviour
 {
-    [Header("Audio")]
-    public StrikeAudio strikeAudio;   // plays random pog clip
+    public StrikeAudio strikeAudio;
 
-    [Header("Strike FX")]
-    public ParticleSystem strikeConfetti; // confetti particle system
+    public ParticleSystem strikeConfetti; //
 
     private readonly List<Pin> pins = new List<Pin>();
     private readonly HashSet<Pin> fallenPins = new HashSet<Pin>();
@@ -38,13 +36,13 @@ public class PinManager : MonoBehaviour
             if (strikeAudio != null)
                 strikeAudio.PlayStrike();
             else
-                Debug.LogWarning("PinManager: StrikeAudio not assigned.");
+                Debug.LogWarning("StrikeAudio not assigned.");
 
             // Play confetti effect
             if (strikeConfetti != null)
                 strikeConfetti.Play();
             else
-                Debug.LogWarning("PinManager: strikeConfetti not assigned.");
+                Debug.LogWarning("strikeConfetti not assigned.");
         }
     }
 

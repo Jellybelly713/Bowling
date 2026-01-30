@@ -32,7 +32,7 @@ public class ResetPinsButton : MonoBehaviour
         if (pinManager != null)
             pinManager.ResetAllPins();
         else
-            Debug.LogWarning("ResetPinsButton: PinManager is not assigned.");
+            Debug.LogWarning("PinManager is not assigned.");
     }
 
     public void OnSelectEntered(SelectEnterEventArgs args)

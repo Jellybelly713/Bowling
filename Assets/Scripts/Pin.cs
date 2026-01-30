@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
-    [Header("Knockdown Detection")]
     public float fallenAngle = 45f;
     public float fallenHoldTime = 0.35f; 
 
-    [Header("Despawn")]
     public float despawnDelay = 1.0f;
 
     private Rigidbody rb;
@@ -37,7 +35,6 @@ public class Pin : MonoBehaviour
 
         float angle = Vector3.Angle(transform.up, Vector3.up);
 
-        // If tipped over far enough, start counting time
         if (angle >= fallenAngle)
         {
             fallenTimer += Time.deltaTime;

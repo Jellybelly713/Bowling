@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // --- MOVE INPUT ---
+        // Move Input
         Vector2 moveInput = Keyboard.current != null
             ? new Vector2(
                 (Keyboard.current.aKey.isPressed ? -1 : 0) + (Keyboard.current.dKey.isPressed ? 1 : 0),
@@ -34,10 +34,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         move *= speed;
 
-        // --- GRAVITY ---
+        // Gravity
         if (characterController.isGrounded)
         {
-            // keeps you “stuck” to ground so you don’t float after walking onto edges
+            // keeps you “stuck” to ground so player doesn't float after walking onto edges
             if (yVelocity < 0f) yVelocity = groundStickForce;
         }
         else
