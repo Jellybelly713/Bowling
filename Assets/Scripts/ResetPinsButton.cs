@@ -1,12 +1,11 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ResetPinsButton : MonoBehaviour
 {
-    [Header("Press Animation")]
     public float pressSpeed = 4f;
     public float pressDistance = 0.2f;
-
-    [Header("References")]
+    
     public PinManager pinManager;
 
     private Vector3 startPos;
@@ -35,5 +34,11 @@ public class ResetPinsButton : MonoBehaviour
         else
             Debug.LogWarning("ResetPinsButton: PinManager is not assigned.");
     }
+
+    public void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        Press();
+    }
 }
+
 

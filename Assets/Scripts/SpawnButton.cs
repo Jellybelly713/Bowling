@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpawnButton : MonoBehaviour
 {
@@ -31,5 +32,11 @@ public class SpawnButton : MonoBehaviour
 
         isPressed = true;
     }
+    
+    public void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        Press();
+    }
 }
+
 
