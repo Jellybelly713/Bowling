@@ -4,7 +4,10 @@ using UnityEngine;
 public class PinManager : MonoBehaviour
 {
     [Header("Audio")]
-    public StrikeAudio strikeAudio;   // reference to StrikeAudio script
+    public StrikeAudio strikeAudio;   // plays random pog clip
+
+    [Header("Strike FX")]
+    public ParticleSystem strikeConfetti; // confetti particle system
 
     private readonly List<Pin> pins = new List<Pin>();
     private readonly HashSet<Pin> fallenPins = new HashSet<Pin>();
@@ -31,10 +34,17 @@ public class PinManager : MonoBehaviour
         {
             strikePlayed = true;
 
+            // Play strike sound
             if (strikeAudio != null)
                 strikeAudio.PlayStrike();
             else
                 Debug.LogWarning("PinManager: StrikeAudio not assigned.");
+
+            // Play confetti effect
+            if (strikeConfetti != null)
+                strikeConfetti.Play();
+            else
+                Debug.LogWarning("PinManager: strikeConfetti not assigned.");
         }
     }
 
@@ -48,6 +58,10 @@ public class PinManager : MonoBehaviour
 
         fallenPins.Clear();
         strikePlayed = false;
+
+        // Stop confetti if still playing
+        if (strikeConfetti != null && strikeConfetti.isPlaying)
+            strikeConfetti.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
     public void StartNewThrow()
@@ -56,5 +70,6 @@ public class PinManager : MonoBehaviour
         strikePlayed = false;
     }
 }
+
 
 
